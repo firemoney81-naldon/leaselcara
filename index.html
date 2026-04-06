@@ -1,23 +1,443 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; line-height: 1.7; margin: 0; padding: 0; background-color: #f5f7fa; color: #333; }
+    header { background: linear-gradient(135deg, #004aad, #0070f3); color: #fff; text-align: center; padding: 40px 15px; border-radius: 0 0 12px 12px; }
+    section { max-width: 900px; margin: 20px auto; padding: 30px; background: #ffffff; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+    h1 { font-size: 2.5em; font-weight: 700; margin-bottom: 10px; }
+    h2 { font-size: 2em; color: #004aad; border-bottom: 3px solid #e0eaf4; padding-bottom: 10px; margin-top: 30px; }
+    h3 { font-size: 1.5em; color: #2c3e50; margin-top: 25px; }
+    p { margin-bottom: 15px; text-align: justify; }
+    ul, ol { padding-left: 20px; margin-bottom: 15px; }
+    li { margin-bottom: 8px; line-height: 1.6; }
+    table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 20px 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    th, td { padding: 15px; text-align: center; border-bottom: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; }
+    th { background: #004aad; color: #fff; font-weight: 700; border-top: none; }
+    tr:nth-child(even) { background-color: #f9f9f9; }
+    tr:last-child td { border-bottom: none; }
+    td:last-child, th:last-child { border-right: none; }
+    a { color: #0070f3; text-decoration: none; font-weight: 500; }
+    a:hover { text-decoration: underline; }
+    .btn-cta {
+      display: inline-block;
+      padding: 14px 30px;
+      background: #0070f3;
+      color: #fff;
+      font-weight: 700;
+      border-radius: 30px;
+      box-shadow: 0 4px 12px rgba(0, 112, 243, 0.4);
+      transition: all 0.3s ease;
+      text-align: center;
+      margin-top: 20px;
+      cursor: pointer;
+      border: none;
+      font-size: 1.1em;
+    }
+    .btn-cta:hover {
+      background: #005bb5;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 112, 243, 0.5);
+    }
+    nav { background: #e0eaf4; padding: 15px 0; border-radius: 8px; max-width: 900px; margin: 20px auto; }
+    nav ul { list-style: none; padding: 0; margin: 0; text-align: center; display: flex; justify-content: space-around; flex-wrap: wrap; }
+    nav li { display: inline-block; }
+    nav a { display: block; padding: 10px 15px; color: #004aad; font-weight: 500; border-radius: 5px; transition: background-color 0.3s; }
+    nav a:hover { background-color: #c4d8f0; text-decoration: none; }
+    .anchor { display: block; position: relative; top: -80px; visibility: hidden; }
+    .image-container { text-align: center; margin: 20px 0; }
+    .image-container img { max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .content-highlight { background-color: #f0f8ff; padding: 20px; border-left: 5px solid #0070f3; border-radius: 5px; margin-top: 20px; }
+    /* Form specific styles for better readability and structure */
+    form { max-width: 700px; margin: 20px auto; padding: 25px; background: #fff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 5px; color: #004aad; }
+    .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="tel"], .form-group select, .form-group textarea {
+      width: calc(100% - 20px); /* Adjust width to account for padding */
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+    .form-row { display: flex; gap: 20px; }
+    .form-row > div { flex: 1; }
+    @media(max-width: 600px) {
+      header { padding: 30px 10px; }
+      h1 { font-size: 2em; }
+      section { padding: 20px; margin: 10px auto; }
+      nav ul { flex-direction: column; }
+      nav li { width: 100%; margin: 5px 0; }
+      .form-row { flex-direction: column; gap: 0; }
+    }
+  </style>
+
+  <!-- Schema.org AutomotiveBusiness 마크업(JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutomotiveBusiness",
+    "name": "BMW iX3 리스 전문 에이전시",
+    "description": "2026년형 BMW iX3 M Sport 및 Excellence 모델의 리스 견적을 전문적으로 비교 분석합니다. 최저가 할인 프로모션, 사은품, 현금지원 혜택 제공.",
+    "url": "https://도메인/bmw-ix3-lease",
+    "priceRange": "₩₩₩",
+    "image": "https://도메인/ix3_lease.png",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "서울 강남구 테헤란로 000",
+      "addressLocality": "서울시",
+      "addressRegion": "서울",
+      "postalCode": "06130",
+      "addressCountry": "KR"
+    },
+    "telephone": "+82-2-1234-5678",
+    "areaServed": {
+      "@type": "Country",
+      "name": "대한민국"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "150"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "KRW",
+      "price": "500000",
+      "description": "월 리스료 최저가 보장"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header>
+    <h1>BMW iX3 리스: 2026년형 가격 견적 및 프로모션 완벽 분석</h1>
+    <p>iX3 M Sport / Excellence 모델 비교, 최저가 견적, 할인 혜택, 보조금 정보까지 한 번에 확인하세요.</p>
+    <button class="btn-cta" onclick="location.href='#contact'">iX3 실시간 최저가 견적 받기</button>
+  </header>
+
+  <nav aria-label="페이지 내 이동">
+    <ul>
+      <li><a href="#introduction">iX3 소개</a></li>
+      <li><a href="#lease-vs-purchase">리스 vs 구매 비교</a></li>
+      <li><a href="#pricing-model">가격 및 견적 분석</a></li>
+      <li><a href="#special-offers">프로모션 및 혜택</a></li>
+      <li><a href="#review-comparison">장단점 비교</a></li>
+      <li><a href="#faq">FAQ 및 체크리스트</a></li>
+      <li><a href="#contact">견적 상담 신청</a></li>
+    </ul>
+  </nav>
+
+  <section id="introduction">
+    <span id="introduction-anchor" class="anchor"></span>
+    <h2>BMW iX3, 2026년형 모델의 매력적인 변화</h2>
+    <div class="image-container">
+        <!-- Pexels.com에서 저작권 걱정 없는 BMW iX3 이미지 삽입 -->
+        <img src="https://images.pexels.com/photos/10351066/pexels-photo-10351066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="BMW iX3 M Sport 모델 이미지" />
+    </div>
+    <p>BMW iX3는 글로벌 전기차 시장에서 BMW의 핵심 전략 모델인 X3의 전기차 버전으로, 넉넉한 공간과 BMW 특유의 역동적인 주행 성능을 결합한 프리미엄 전기 SUV입니다. 2026년형 모델은 이전 세대 대비 향상된 주행 가능 거리와 업그레이드된 인포테인먼트 시스템, 그리고 더욱 세련된 내외관 디자인으로 시장의 주목을 받고 있습니다. iX3 M Sport 모델은 스포티한 감성을, iX3 Excellence 모델은 고급스러운 편의 사양을 강조하며 소비자들에게 다양한 선택지를 제공합니다. 이 페이지에서는 iX3 리스를 고려하는 분들을 위해 2026년형 모델의 상세한 정보와 함께, 최저가 견적을 받을 수 있는 방법을 안내해 드립니다.</p>
+
+    <h3>왜 BMW iX3를 선택해야 할까요?</h3>
+    <p>BMW iX3는 단순히 X3의 전동화 버전이 아닌, BMW의 전기차 기술이 집약된 모델입니다. 특히, 전기차 전용 플랫폼이 아닌 기존 내연기관 플랫폼을 활용하면서도 훌륭한 주행감을 구현해냈다는 평가를 받습니다. 고성능 전기 모터와 배터리 시스템은 즉각적인 가속 성능과 긴 주행 가능 거리를 보장합니다. 또한, BMW 특유의 정교한 섀시 튜닝은 편안함과 스포티함을 동시에 만족시킵니다. 2026년형 iX3는 최신 ADAS(첨단 운전자 보조 시스템)를 탑재하여 더욱 안전하고 편리한 주행 경험을 제공합니다. 특히 장거리 주행 시 피로도를 줄여주는 자율 주행 보조 기능은 iX3의 큰 장점 중 하나로 꼽힙니다.</p>
+
+    <div class="content-highlight">
+        <h4>iX3 주요 제원 (2026년형 예상)</h4>
+        <ul>
+            <li><strong>최대 출력:</strong> 210kW (약 286마력)</li>
+            <li><strong>최대 토크:</strong> 40.8kg.m</li>
+            <li><strong>제로백 (0-100km/h):</strong> 6.8초</li>
+            <li><strong>배터리 용량:</strong> 80kWh (순수 전기차 기준)</li>
+            <li><strong>1회 충전 주행 가능 거리 (WLTP 기준):</strong> 450~470km (예상)</li>
+        </ul>
+    </div>
+  </section>
+
+  <section id="lease-vs-purchase">
+    <span id="lease-vs-purchase-anchor" class="anchor"></span>
+    <h2>iX3 리스 vs. 구매: 장단점 비교 및 차이점 분석</h2>
+    <p>BMW iX3와 같은 고가 수입 전기차는 '리스'를 통해 운용하는 것이 일반적인 추세입니다. 리스는 차량 가격 전액을 한 번에 지불하는 구매 방식이나, 매월 원금과 이자를 갚아나가는 할부 방식과는 다릅니다. 차량을 직접 소유하지 않고 일정 기간 동안 대여료를 지불하는 방식이기 때문에 초기 비용 부담이 적고 세금 혜택을 받을 수 있다는 장점이 있습니다.</p>
+
+    <h3>iX3 구매 방식별 장단점 비교표</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>iX3 리스 (금융 리스/운용 리스)</th>
+                <th>iX3 할부 구매</th>
+                <th>iX3 장기렌트</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>차량 소유권</strong></td>
+                <td>리스사 (만기 시 구매 가능)</td>
+                <td>고객 (차량 등록증에 명시)</td>
+                <td>렌트사 (만기 시 구매 가능)</td>
+            </tr>
+            <tr>
+                <td><strong>초기 비용</strong></td>
+                <td>보증금 (0%~40%) 설정 가능, 취등록세 면제</td>
+                <td>차량 가격의 10%~30%, 취등록세 발생</td>
+                <td>보증금 또는 선수금 설정 가능</td>
+            </tr>
+            <tr>
+                <td><strong>세금 처리</strong></td>
+                <td>사업자 경비 처리 (전액 손금 인정)</td>
+                <td>감가상각비, 유류세 등 일부만 경비 처리</td>
+                <td>사업자 경비 처리 (전액 손금 인정)</td>
+            </tr>
+            <tr>
+                <td><strong>번호판</strong></td>
+                <td>일반 승용차 번호판 (하, 허, 호 아님)</td>
+                <td>일반 승용차 번호판</td>
+                <td>렌터카 번호판 (하, 허, 호)</td>
+            </tr>
+            <tr>
+                <td><strong>보험 처리</strong></td>
+                <td>개인 보험 요율 적용, 보험 경력 유지</td>
+                <td>개인 보험 가입</td>
+                <td>렌트사 보험 가입 (보험료에 포함)</td>
+            </tr>
+            <tr>
+                <td><strong>총 비용 부담</strong></td>
+                <td>초기 비용 및 월 납입금 저렴, 만기 시 잔존가치 처리 필요</td>
+                <td>차량 가격 전액 부담, 초기 비용 높음</td>
+                <td>리스보다 월 납입금이 높으나 보험료 포함으로 편리함</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>iX3 리스의 구체적인 장점 (사업자/법인 기준)</h3>
+    <p>iX3 리스의 가장 큰 장점은 세금 절감 효과입니다. 법인 또는 개인 사업자가 iX3를 리스하면, 월 납입금 전액을 사업 운영 경비(손금)로 처리할 수 있어 소득세나 법인세를 절감할 수 있습니다. 특히 BMW iX3와 같이 가격이 높은 수입차량의 경우, 세금 절감 효과가 매우 큽니다. 반면 할부 구매 시에는 차량 감가상각비와 이자 비용만 경비 처리할 수 있으며, 연간 경비 인정 한도가 정해져 있어 리스에 비해 불리합니다. 또한 리스 차량은 일반 승용차 번호판을 사용하므로, 렌터카 번호판인 '하', '호'를 피하고 싶은 분들에게도 유리합니다.</p>
+    <p><strong>주요 키워드:</strong> iX3 리스, iX3 장점, iX3 단점, iX3 차이점, iX3 장기렌트, iX3 가격, iX3 비용, 사업자 리스, 법인 리스, 세금 혜택.</p>
+  </section>
+
+  <section id="pricing-model">
+    <span id="pricing-model-anchor" class="anchor"></span>
+    <h2>BMW iX3 가격 및 견적 분석: 월 납입금 계산 방법</h2>
+    <p>BMW iX3의 리스 견적은 차량 가격뿐만 아니라 잔존가치, 리스 기간, 보증금 비율, 금리 등 다양한 요소에 의해 결정됩니다. 2026년형 iX3 모델의 공식적인 국내 판매 가격은 아직 확정되지 않았으나, 기존 모델과 시장 상황을 고려한 예상 가격을 기준으로 리스 견적을 분석해 봅니다. 리스료는 [차량가 - 잔존가치] / 리스 기간 + 금리 이자 + 기타 수수료로 계산됩니다. 이 때문에 잔존가치가 높을수록 월 납입금이 저렴해집니다.</p>
+
+    <h3>2026년형 iX3 모델별 예상 가격 (M Sport vs. Excellence)</h3>
+    <p>iX3는 일반적으로 M Sport와 Excellence 두 가지 트림으로 제공되며, 옵션에 따라 가격 차이가 발생합니다. M Sport는 스포티한 외관 디자인과 인테리어가 특징이며, Excellence는 고급스러운 소재와 편의 기능에 중점을 둡니다. 2026년형 모델은 새로운 디자인 요소와 최신 기술이 적용되면서 가격이 소폭 상승할 것으로 예상됩니다.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>모델명</th>
+                <th>2026년 예상 시작 가격</th>
+                <th>주요 특징</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>BMW iX3 M Sport</strong></td>
+                <td>예상 7,500만 원 ~ 8,000만 원</td>
+                <td>M 에어로 다이내믹 패키지, 스포츠 시트, M 스티어링 휠</td>
+            </tr>
+            <tr>
+                <td><strong>BMW iX3 Excellence</strong></td>
+                <td>예상 8,000만 원 ~ 8,500만 원</td>
+                <td>통풍 시트, 하만 카돈 사운드 시스템, 어댑티브 LED 헤드라이트</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>iX3 월 리스료 예상 견적표 (2026년형, 48개월 기준)</h3>
+    <p>아래 견적은 보증금 비율에 따른 월 납입금 예시입니다. 리스 기간(36개월, 48개월, 60개월)에 따라 금액이 달라지며, 보증금이 높을수록 월 납입금이 낮아집니다. 또한, 리스 업체별로 금리(이자율)와 잔존가치 책정 기준이 다르므로, 여러 업체의 견적을 비교하는 것이 중요합니다. 저희는 iX3 최저가 견적을 제공하는 전문 업체 순위를 비교하여 가장 싼곳을 추천해 드립니다.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>보증금 비율</th>
+                <th>월 납입금 (M Sport 기준)</th>
+                <th>월 납입금 (Excellence 기준)</th>
+                <th>총 납입 비용 (보증금 제외)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>0% (초기 비용 0원)</strong></td>
+                <td>약 105만 원 ~ 115만 원</td>
+                <td>약 110만 원 ~ 120만 원</td>
+                <td>약 5,040만 원 ~ 5,760만 원</td>
+            </tr>
+            <tr>
+                <td><strong>20% (보증금 약 1,500만 원)</strong></td>
+                <td>약 90만 원 ~ 100만 원</td>
+                <td>약 95만 원 ~ 105만 원</td>
+                <td>약 4,320만 원 ~ 5,040만 원</td>
+            </tr>
+            <tr>
+                <td><strong>40% (보증금 약 3,000만 원)</strong></td>
+                <td>약 75만 원 ~ 85만 원</td>
+                <td>약 80만 원 ~ 90만 원</td>
+                <td>약 3,600만 원 ~ 4,320만 원</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="content-highlight">
+        <p><strong>참고:</strong> 위 표의 금액은 2026년 예상 가격 및 표준 금리를 기준으로 한 대략적인 <strong>예상 비용</strong>입니다. 정확한 <strong>할인율</strong> 및 <strong>실시간 견적</strong>은 문의를 통해 확인해야 합니다. <strong>iX3 저렴한곳</strong>을 찾으려면 보증금과 리스 기간을 조절하여 총 이자 비용을 계산해봐야 합니다. <strong>iX3 신규 가입 혜택</strong>이나 프로모션 기간에는 더 낮은 가격에 계약할 수 있습니다.</p>
+    </div>
+  </section>
+
+  <section id="special-offers">
+    <span id="special-offers-anchor" class="anchor"></span>
+    <h2>BMW iX3 리스 특별 프로모션 및 혜택 안내 (현금지원, 사은품 포함)</h2>
+    <p>iX3 리스는 단순한 차량 운용을 넘어 다양한 금융 혜택을 제공합니다. 특히 리스 전문 업체들은 시장 점유율 확대를 위해 <strong>iX3 할인</strong> 프로모션, <strong>현금지원</strong>, <strong>사은품</strong> 증정 등 파격적인 혜택을 경쟁적으로 내놓고 있습니다. 이러한 혜택을 놓치지 않고 <strong>최저가</strong> 견적을 받는 것이 중요합니다.</p>
+
+    <h3>1. BMW 공식 프로모션 및 비공식 할인</h3>
+    <p>BMW 코리아 공식 딜러사에서는 매달 <strong>iX3 특별 프로모션</strong>을 진행합니다. 재고 상황, 월말 할인, 비인기 색상 할인 등 다양한 조건에 따라 할인 금액이 달라집니다. 저희 전문 에이전시는 딜러사별 실시간 <strong>iX3 할인율</strong>을 비교하여 고객님께 가장 유리한 조건을 찾아드립니다. 딜러사별로 할인 금액이 수백만 원씩 차이 날 수 있으므로, 여러 <strong>iX3 업체</strong>를 통해 견적을 받아보는 것이 필수적입니다.</p>
+
+    <h3>2. 리스 업체별 혜택: 현금지원 및 사은품</h3>
+    <p><strong>iX3 리스</strong>를 진행하는 에이전시나 금융사는 경쟁적으로 고객 유치를 위한 추가 혜택을 제공합니다. <strong>신규 가입 혜택</strong>으로 <strong>상품권</strong> 또는 <strong>현금 지원금</strong>을 제공하는 경우가 많습니다. <strong>디시(DC)</strong> 혜택으로 불리는 이 현금 지원금은 월 납입금을 실질적으로 낮추는 효과가 있습니다. 또한, 고급 블랙박스, 하이패스, 프리미엄 썬팅 등 <strong>사은품</strong> 패키지를 제공하여 초기 비용 부담을 덜어주기도 합니다. <strong>iX3 내돈내산 후기</strong>를 보면 이러한 혜택을 꼼꼼히 챙겨야 <strong>가장 저렴한</strong> 조건으로 계약할 수 있다는 조언이 많습니다.</p>
+
+    <h3>3. iX3 전기차 보조금 안내 (2026년 기준)</h3>
+    <p>BMW iX3는 순수 전기차이므로 정부 및 지자체 <strong>전기차 보조금</strong> 혜택을 받을 수 있습니다. 2026년 기준 보조금 정책은 차량 가격, 주행 가능 거리, 배터리 효율 등 여러 요소를 고려하여 산정됩니다. iX3의 경우, 고가 차량이므로 보조금 전액은 받기 어렵지만, 일부 지원을 통해 실구매가격을 낮출 수 있습니다. <strong>iX3 리스 계약</strong> 시 이 보조금 정책을 정확히 이해하고 반영하는 전문 업체와의 상담이 필수적입니다.</p>
+
+    <div class="content-highlight">
+        <h4>함께 많이 찾는 키워드:</h4>
+        <p>iX3 리스 가격 비교, iX3 싼곳, iX3 저렴한곳, iX3 견적 전문 업체, iX3 M Sport 프로모션, iX3 현금 지원, iX3 사은품 혜택, BMW 전기차 할인, iX3 신규 가입 혜택, iX3 디시.</p>
+    </div>
+  </section>
+
+  <section id="review-comparison">
+    <span id="review-comparison-anchor" class="anchor"></span>
+    <h2>iX3 장점과 단점: 소비자 후기 및 경쟁 모델 비교</h2>
+    <p>BMW iX3는 훌륭한 차량이지만, 모든 소비자에게 완벽한 선택은 아닙니다. <strong>iX3 후기</strong> 및 <strong>내돈내산</strong> 리뷰를 분석하여 iX3의 명확한 <strong>장단점</strong>을 파악하고, 경쟁 모델과의 <strong>비교</strong>를 통해 합리적인 결정을 돕겠습니다. 이 분석은 2026년형 모델의 예상 성능과 시장 평가를 기반으로 합니다.</p>
+
+    <h3>iX3의 명확한 장점 (Pros)</h3>
+    <ol>
+        <li><strong>운전의 즐거움 (BMW 드라이빙 감성):</strong> iX3는 내연기관 X3와 동일한 플랫폼을 사용하지만, 배터리가 하부에 위치하여 무게 중심이 낮습니다. 이는 코너링 시 안정감을 높여 BMW 특유의 역동적인 주행 경험을 제공합니다. <strong>iX3 시승기</strong>를 보면 "전기차이면서도 BMW다움이 살아있다"는 평이 많습니다.</li>
+        <li><strong>뛰어난 효율성 및 충전 속도:</strong> BMW 5세대 eDrive 기술이 적용된 iX3는 높은 에너지 효율을 자랑합니다. 2026년형 모델은 400V 고속 충전을 지원하여 10%에서 80%까지 충전하는 데 30분 내외의 짧은 시간을 소요합니다. 이는 장거리 주행 시 매우 큰 <strong>장점</strong>입니다.</li>
+        <li><strong>넓은 실내 공간과 실용성:</strong> X3 플랫폼을 공유하여 넉넉한 2열 공간과 트렁크 용량을 확보했습니다. 패밀리카로도 손색이 없으며, 캠핑이나 레저 활동 시에도 충분한 짐을 실을 수 있습니다.</li>
+        <li><strong>고급스러운 인테리어 및 최신 기술:</strong> iX3 Excellence 모델에는 통풍 시트, 하만 카돈 사운드 시스템 등 고급 편의 사양이 기본 탑재됩니다. 또한 최신 BMW OS 8.5 인포테인먼트 시스템은 AI 기반 음성 인식(<strong>ChatGPT</strong> 또는 <strong>Gemini</strong>와 연동된 지능형 개인 비서 기능)을 통해 운전 편의성을 극대화합니다.</li>
+    </ol>
+
+    <h3>iX3의 고려해야 할 단점 (Cons)</h3>
+    <ol>
+        <li><strong>상대적으로 짧은 주행 거리:</strong> 2026년형 iX3는 450km 이상의 주행 거리를 예상하고 있지만, 전용 플랫폼(E-GMP 등)을 사용하는 경쟁 모델 대비 다소 짧다는 평가가 있습니다. 특히 겨울철에는 주행 거리가 더욱 감소할 수 있으므로, 운행 환경에 따라 <strong>단점</strong>이 될 수 있습니다.</li>
+        <li><strong>높은 차량 가격 및 초기 비용:</strong> 수입차 리스는 초기 비용 부담이 적다는 장점이 있지만, 차량 가격 자체가 높아 월 납입금 수준이 국산 전기차 대비 높습니다. <strong>iX3 가격</strong>이 부담되는 소비자에게는 <strong>iX3 싼곳</strong>을 찾는 것이 중요합니다.</li>
+        <li><strong>풀체인지 모델 대기 수요:</strong> 2026년형 모델이 페이스리프트인지, 아니면 차세대 풀체인지 모델인지에 따라 구매 결정이 달라질 수 있습니다. <strong>iX3 풀체인지</strong>를 기다리는 소비자도 많아, 현재 모델의 <strong>재판매 가치(잔존가치)</strong>를 신중하게 고려해야 합니다.</li>
+    </ol>
+
+    <h3>경쟁 모델 비교 (iX3 vs. 벤츠 EQC, 아우디 Q4 e-tron)</h3>
+    <p>iX3의 주요 경쟁 모델로는 벤츠 EQC와 아우디 Q4 e-tron이 있습니다. EQC는 iX3 대비 더 부드러운 승차감과 고급스러운 실내 디자인을 자랑하지만, 주행 거리가 짧다는 <strong>단점</strong>이 있습니다. Q4 e-tron은 iX3보다 <strong>저렴한</strong> 가격대로 형성되어 있으며, 폭스바겐 그룹의 MEB 전용 플랫폼을 사용하여 실내 공간 효율이 좋습니다. iX3는 이들 경쟁 모델 사이에서 "운전의 재미"와 "효율적인 리스 상품성"이라는 뚜렷한 <strong>장점</strong>을 가지고 있습니다.</p>
+  </section>
+
+  <section id="faq">
+    <span id="faq-anchor" class="anchor"></span>
+    <h2>iX3 리스 계약 전 필수 확인사항 및 FAQ</h2>
+    <p>BMW iX3 리스 계약을 진행하기 전에 반드시 확인해야 할 사항들을 정리했습니다. 계약 조건, 만기 처리 방법, 보증금과 선수금의 <strong>차이점</strong> 등 리스 관련 정보를 숙지하면 손해 없이 계약을 마무리할 수 있습니다.</p>
+
+    <h3>1. 리스 계약 시 체크리스트</h3>
+    <ul>
+        <li><strong>약정 주행거리:</strong> 연간 주행거리(1만km, 2만km, 3만km 등)를 설정해야 합니다. 주행거리가 길수록 월 납입금이 올라가므로 자신의 운행 습관에 맞는 거리를 설정해야 합니다. 초과 시 패널티가 발생할 수 있습니다.</li>
+        <li><strong>잔존가치:</strong> 리스 만기 시 차량의 예상 가치입니다. 잔존가치가 높을수록 월 납입금이 저렴해지지만, 만기 후 인수 시 부담해야 할 금액이 높아집니다. <strong>iX3 잔존가치</strong>를 높게 책정하는 것이 <strong>저렴한 리스</strong>의 핵심입니다.</li>
+        <li><strong>보험:</strong> 리스 계약 시 보험은 개인 보험을 유지할 수 있어 보험 경력이 단절되지 않습니다. 렌트와 달리 개인의 보험 요율을 적용받으므로, 무사고 운전자에게는 리스가 유리합니다.</li>
+        <li><strong>중도 해지:</strong> 계약 기간 만료 전에 해지할 경우 위약금이 발생합니다. 중도 해지 수수료율을 반드시 확인해야 합니다.</li>
+    </ul>
+
+    <h3>2. iX3 리스 만기 처리 방법</h3>
+    <p>iX3 리스 계약이 만료되면 다음 세 가지 선택지 중 하나를 선택해야 합니다. 각 선택지별로 장단점이 있으므로, 계약 단계에서부터 만기 처리 방법을 염두에 두어야 합니다.</p>
+    <ol>
+        <li><strong>반납:</strong> 차량을 리스사에 반납합니다. 이 경우 추가 비용(감가상각비 등)이 발생할 수 있으므로, 차량 상태를 깨끗하게 유지하는 것이 중요합니다.</li>
+        <li><strong>구매:</strong> 잔존가치를 지불하고 차량을 인수합니다. 리스 계약 시 <strong>iX3 잔존가치</strong>가 낮게 책정되었다면 유리한 조건입니다.</li>
+        <li><strong>재리스:</strong> 계약을 연장하여 계속 운행합니다.</li>
+    </ol>
+
+    <h3>3. iX3 전문 업체 순위 및 비교</h3>
+    <p>수많은 <strong>iX3 리스 업체</strong> 중에서 <strong>순위</strong>가 높고 신뢰할 수 있는 곳을 선택하는 것이 중요합니다. <strong>iX3 저렴한곳</strong>은 단순히 월 납입금이 낮은 곳이 아니라, 총 이자 비용, 숨겨진 수수료, 그리고 만기 시 잔존가치 설정이 합리적인 곳입니다. <strong>iX3 업체</strong>를 <strong>비교</strong>할 때는 <strong>내돈내산 후기</strong>를 참고하고, 여러 곳의 <strong>견적</strong>을 받아보는 것이 좋습니다.</p>
+
+    <div class="content-highlight">
+        <h4>iX3 리스 관련 주요 연관 검색어:</h4>
+        <p>BMW iX3 M Sport 리스 가격, iX3 2026 보조금, iX3 장기렌트 가격 비교, BMW iX3 신형, iX3 출고 대기 기간, iX3 할인율, iX3 시승 후기, iX3 리스 기간.</p>
+    </div>
+
+    <button class="btn-cta" onclick="location.href='#contact'">iX3 리스 조건 상담 신청하기</button>
+  </section>
+
+  <section id="contact">
+    <span id="contact-anchor" class="anchor"></span>
+    <h2>BMW iX3 실시간 최저가 견적 상담 신청</h2>
+    <p>iX3 리스 견적은 실시간 재고 상황, 딜러사 프로모션, 개인 신용도에 따라 매일 달라집니다. 정확한 최저가 견적을 받으려면 아래 문의 양식을 작성해 주세요. 전문 컨설턴트가 24시간 이내에 가장 합리적인 조건으로 상담을 도와드립니다.</p>
+    <form action="/submit-lease-inquiry" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">이름<span style="color:red;">*</span></label>
+          <input type="text" id="name" name="name" required placeholder="예: 홍길동" />
+        </div>
+        <div class="form-group">
+          <label for="phone">연락처<span style="color:red;">*</span></label>
+          <input type="tel" id="phone" name="phone" required placeholder="010-1234-5678" pattern="[0-9\-]+" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="model">희망 모델<span style="color:red;">*</span></label>
+          <select id="model" name="model" required>
+            <option value="">모델 선택</option>
+            <option value="iX3 M Sport">iX3 M Sport</option>
+            <option value="iX3 Excellence">iX3 Excellence</option>
+            <option value="X3 내연기관">X3 내연기관 (비교 요청)</option>
+            <option value="기타">기타 BMW 전기차 (i4, i5, iX 등)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="lease-term">희망 리스 기간<span style="color:red;">*</span></label>
+          <select id="lease-term" name="lease_term" required>
+            <option value="">기간 선택</option>
+            <option value="36">36개월</option>
+            <option value="48">48개월</option>
+            <option value="60">60개월</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="mileage">연간 약정 주행거리<span style="color:red;">*</span></label>
+          <select id="mileage" name="mileage" required>
+            <option value="">선택</option>
+            <option value="10000">10,000 km</option>
+            <option value="15000">15,000 km</option>
+            <option value="20000">20,000 km</option>
+            <option value="30000">30,000 km 이상</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="initial-cost">초기 비용 희망 조건<span style="color:red;">*</span></label>
+          <select id="initial-cost" name="initial_cost" required>
+            <option value="">선택</option>
+            <option value="zero">초기 비용 0원 (보증금 0%)</option>
+            <option value="10%">보증금 10%</option>
+            <option value="20%">보증금 20%</option>
+            <option value="30%">보증금 30% 이상</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inquiry-details">추가 문의 사항 (원하는 할인 조건, 사은품 등)</label>
+        <textarea id="inquiry-details" name="inquiry_details" rows="4" placeholder="예: iX3 2026년형 모델 재고 여부, 신규 가입 혜택 문의, 특정 옵션 유무 등"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="privacy-policy">개인정보 수집 및 이용 동의<span style="color:red;">*</span></label>
+        <input type="checkbox" id="privacy-policy" name="privacy_policy" required />
+        <span style="font-size: 0.9em; margin-left: 5px;">개인정보 수집 및 이용에 동의합니다. <a href="#">(약관 보기)</a></span>
+      </div>
+
+      <button type="submit" class="btn-cta">견적 문의 보내기</button>
+    </form>
+  </section>
+
+  <section id="footer-info">
+    <h2>추가 정보 및 외부 사이트 참고</h2>
+    <p>BMW iX3 모델에 대한 더 깊이 있는 정보는 아래 외부 사이트를 통해 확인할 수 있습니다. 공신력 있는 기관의 정보를 참고하여 현명한 결정을 내리세요.</p>
+    <ul>
+      <li><a href="https://namu.wiki/w/BMW%20iX3" target="_blank">나무위키: BMW iX3 정보</a> - iX3 모델의 상세 스펙 및 역사, 특징 요약 (공신력 있는 정보는 아니지만, 국내 사용자들의 주요 참고 자료입니다)</li>
+      <li><a href="https://www.bmw.co.kr/" target="_blank">BMW 코리아 공식 홈페이지</a> - 공식 2026년형 모델 정보 및 딜러사 확인</li>
+      <li><a href="https://www.ev.or.kr/" target="_blank">무공해차 통합누리집</a> - 전기차 보조금 정책 및 충전 인프라 정보 (정부 제공 사이트)</li>
+      <li><a href="https://www.carisyou.com/" target="_blank">카이즈유: 자동차 통계 및 시장 분석</a> - iX3의 판매량 및 시장 동향 정보</li>
+      <li><a href="https://www.youtube.com/@BMWKoreaOfficial" target="_blank">BMW 코리아 공식 유튜브 채널</a> - iX3 시승기 및 홍보 영상</li>
+    </ul>
+  </section>
+  
